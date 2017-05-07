@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <script type='text/javascript' src="http://d3js.org/d3.v3.min.js"></script>
+    <script type='text/javascript' src="micropolar-v0.2.2.js"></script>
+	<script src="c3-0.4.11\c3.min.js"></script>
+	<link href="c3-0.4.11\c3.css" rel="stylesheet" type="text/css">
+
+</head>
+<style>
+
+</style>
+<body onload="something()">
+
+<script> //"AVO Plot"
+var data1=['data1', 30, 200, 100, 400, 150, 250]
+var chart = c3.generate({
+    bindto: '#chart',
+    data: {
+      columns: [
+        data1,
+        ['data2', 50, 20, 10, 40, 15, 25]
+      ],
+      axes: {
+        data2: 'y2'
+      },
+      types: {
+        data1: 'scatter',
+		data2: 'spline' // ADD
+      }
+    },
+    axis: {
+      y: {
+        label: {
+          text: 'Y Label',
+          position: 'outer-middle'
+        }
+      },
+      y2: {
+        show: true,
+        label: {
+          text: 'Y2 Label',
+          position: 'outer-middle'
+        }
+      }
+    }
+});
+</script>
+<script>  //3D Polar tool for sectoring
+function something(){
+var reciprocity=0;
+if (document.getElementById("reciprocity").checked){
+reciprocity=1;}
+var num_sectors=document.getElementById("num_sectors").value;
+var apperture=document.getElementById("apperture").value;
+var min_angle=document.getElementById("min_angle").value;
+var max_angle=document.getElementById("max_angle").value;
+var min_azimuth=document.getElementById("min_azimuth").value;
+var max_azimuth=document.getElementById("max_azimuth").value;
+var Rotate=document.getElementById("Rotate").value;
+var t_area = [];
+var r_area=[];
+var r_area_b=[];
+var r_area_a=[];
+var i=0;
+var azi_range=max_azimuth-min_azimuth;
+
+
+
+for (var i = 0; i < 360; i++){
+    t_area[i] = i;
+	if (i % (azi_range/num_sectors) < apperture){  //i area js if state
+	r_area[i]=max_angle-min_angle;
+	r_area_b[i]=70-max_angle;
+	r_area_a[i]=min_angle;
+	}
+	else {
+	r_area[i]=0;
+	r_area_b[i]=0;
+	r_area_a[i]=0;
+	}
+	}
+
+var azimuth=[0,50,100,150,200,250,300,350,40,90,140,190,240,290,340,10,60,110,160,210,260,310,0,50,100,150,200,250,300,350,40,90,140,190,240,290,340];
+var radios=[0,2,4,6,8,10,12,14,16,18,20,15,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70];
+var count=0;
+var azimuth_r=[];
+var radios_r=[];
+
+var config = {
+    "data": [{
+        "t": t_area, // theta values (x axis)
+        "r": r_area_a, // radial values (y axis)
+        "name": num_sectors+" Sectors"+" +- "+apperture/2, // name for the legend
+        "visible": true,
+        "color": "white", // color of data element
+        "opacity": 0.2,
+        "strokeColor": "white",
+        "strokeDash": "dash", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "AreaChart", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 0
+    },{
+		"t": t_area, // theta values (x axis)
+        "r": r_area, // radial values (y axis)
+        "name": num_sectors+" Sectors"+" +- "+apperture/2, // name for the legend
+        "visible": true,
+        "color": "lime", // color of data element
+        "opacity": 0.2,
+        "strokeColor": "lime",
+        "strokeDash": "dash", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "AreaChart", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 0
+    },{
+		"t": t_area, // theta values (x axis)
+        "r": r_area_b, // radial values (y axis)
+        "name": num_sectors+" Sectors"+" +- "+apperture/2, // name for the legend
+        "visible": true,
+        "color": "white", // color of data element
+        "opacity": 0.2,
+        "strokeColor": "white",
+        "strokeDash": "dash", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "AreaChart", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 0
+    },{
+        "t": azimuth,
+        "r": radios,
+        "name": "3D Spiral",
+        "color": "Blue",
+        "strokeColor": "blue",
+        "geometry": "DotPlot",
+        "dotVisible": true,
+        
+    }],
+    "layout": {
+        "title": "3D Polar Tool", // (default: null)
+        "height": 800, // (default: 450)
+        "width": 800, // (default: 500)
+        "font": { // axes labels font
+            "size": 12, // (default:12)
+            "color": "Black", // (default: gray)
+            "family": "Tahoma, sans-serif", // (default: "Tahoma, sans-serif")
+            "outlineColor": "white" // (default: white)
+        },
+        "direction": "clockwise", // clockwise (default), counterclockwise
+        "orientation": 270, // 0-360 (default: 0, starts at 3 O'clock)
+        "opacity": 0.8, // 0-1 (default: 1)
+        "legend": {
+            "reverseOrder": false // true|false (default: false)
+        },
+        "showLegend": false, // (default: true)
+        "margin": { // in pixel (default: 40)
+            "top": 80,
+            "right": 60,
+            "bottom": 30,
+            "left": 60
+        },
+        "backgroundColor": "ghostwhite", // (default: none)
+        "radialAxis": {
+            "domain": [0,70], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "orientation": 0, // 0-360 (default: 0)
+            "visible": true, // true|false (default: true)
+            "gridLinesVisible": true, // true|false (default: true)
+            "tickOrientation": 'angular', // 'angular', 'horizontal' (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "angularAxis": {
+            "domain": [0,360], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "visible": true, // true|false (default: true)
+			"ticksCount": 20,
+            "gridLinesVisible": true, // true|false (default: true)
+            "labelsVisible": true, // true|false (default: true)
+            "tickOrientation": "horizontal", // radial, angular, horizontal (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "labelOffset": 20, // in pixel (default: 10)
+        "defaultColorRange": [ // used by geometries
+          "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+        ],
+        "tickLength": null, // null (default, means full length) | value in pixel
+        "tickColor": "black" // axes, ticks and grid
+    }
+};
+
+if (reciprocity==1){
+	for (i=0;i<azimuth.length;i++){
+		if (azimuth[i]>180){
+			azimuth_r[count] = azimuth[i]- 180;
+			radios_r[count] = radios[i];
+			azimuth[i] = 0;
+			radios[i] = 0;
+			count++;
+		}
+	}
+config.data.push({
+        "t": azimuth_r,
+        "r": radios_r,
+        "name": "Reciprocity",
+        "color": "Red",
+        "strokeColor": "Red",
+        "geometry": "DotPlot",
+        "dotVisible": true,
+        
+    });
+
+}
+
+micropolar.Axis() // instantiate a new axis
+  .config(config) // configure it
+  .render(d3.select('div').data('div1'))
+  ; // render it
+	
+  }
+  
+  </script>
+<script> // angle plot fo zvi
+var grid = [];
+var r_area_inc=[];
+var r_area_refl=[];
+var i=0;
+var dip=20;
+var normal=90-dip;
+
+for (i = 0; i < 360; i++){
+    grid[i] = i;
+	r_area_refl[i]=0;
+	if (i>(normal-dip)){
+	r_area_inc[i]=70;}
+	else{
+	r_area_inc[i]=0;}
+	if (i>(normal)){
+	r_area_refl[i]=70;}
+	else{
+	r_area_refl[i]=0;}
+	}
+for (i = normal; i < 360; i++){
+    r_area_inc[i]=0;
+	if(i>normal+dip){
+	r_area_refl[i]=0;}
+	}
+	
+
+var config = {
+    "data": [{
+        "t": grid, // theta values (x axis)
+        "r": r_area_inc, // radial values (y axis)
+        "name": "Reflection", // name for the legend
+        "visible": true,
+        "color": "lime", // color of data element
+        "opacity": 0.1,
+        "strokeColor": "lime",
+        "strokeDash": "solid", // solid, dot, dash (default)
+        "strokeSize": 5,
+        "visibleInLegend": true,
+        "geometry": "AreaChart" // AreaChart, BarChart, DotPlot, LinePlot (default)
+    },{
+        "t": grid, // theta values (x axis)
+        "r": r_area_refl, // radial values (y axis)
+        "name": "Incident", // name for the legend
+        "visible": true,
+        "color": "blue", // color of data element
+        "opacity": 0.1,
+        "strokeColor": "blue",
+        "strokeDash": "solid", // solid, dot, dash (default)
+        "strokeSize": 5,
+        "visibleInLegend": true,
+        "geometry": "AreaChart" // AreaChart, BarChart, DotPlot, LinePlot (default)
+    }, {
+        "t": [0,180-dip,360-dip],
+        "r": [0,70,70],
+        "name": "Horizon",
+        "color": "gray",
+        "strokeColor": "red",
+        "geometry": "LinePlot",
+        "groupId": 0 // when you want to stack geometry, set the same groupId
+    },{
+        "t": [0,90-dip],
+        "r": [0,70],
+        "name": "Normal",
+        "color": "black",
+        "strokeColor": "Black",
+        "geometry": "LinePlot",
+        "groupId": 0 // when you want to stack geometry, set the same groupId
+    }],
+    "layout": {
+        "title": "New Polar Tool", // (default: null)
+        "height": 500, // (default: 450)
+        "width": 500, // (default: 500)
+        "font": { // axes labels font
+            "size": 12, // (default:12)
+            "color": "Black", // (default: gray)
+            "family": "Tahoma, sans-serif", // (default: "Tahoma, sans-serif")
+            "outlineColor": "white" // (default: white)
+        },
+        "direction": "counterclockwise", // clockwise (default), counterclockwise
+        "orientation": 0, // 0-360 (default: 0, starts at 3 O'clock)
+        "opacity": 0.8, // 0-1 (default: 1)
+        "legend": {
+            "reverseOrder": false // true|false (default: false)
+        },
+        "showLegend": true, // (default: true)
+        "margin": { // in pixel (default: 40)
+            "top": 60,
+            "right": 60,
+            "bottom": 30,
+            "left": 60
+        },
+        "backgroundColor": "ghostwhite", // (default: none)
+        "radialAxis": {
+            "domain": [0,70], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "orientation": 0, // 0-360 (default: 0)
+            "visible": false, // true|false (default: true)
+            "gridLinesVisible": true, // true|false (default: true)
+            "tickOrientation": 'angular', // 'angular', 'horizontal' (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "angularAxis": {
+            "domain": [0,360], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "visible": false, // true|false (default: true)
+            "gridLinesVisible": true, // true|false (default: true)
+            "labelsVisible": true, // true|false (default: true)
+            "tickOrientation": "horizontal", // radial, angular, horizontal (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "labelOffset": 20, // in pixel (default: 10)
+        "defaultColorRange": [ // used by geometries
+          "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+        ],
+        "tickLength": null, // null (default, means full length) | value in pixel
+        "tickColor": "black" // axes, ticks and grid
+    }
+};
+
+micropolar.Axis() // instantiate a new axis
+  .config(config) // configure it
+  .render(d3.select('div').append('div2').call(d3.behavior.zoom().on("zoom",something())); // render it
+
+  
+  </script>
+
+  <form id="paras">
+  <input type="number" value ="6" id="num_sectors" max="15" min ="0" maxlength="2">Sectors</input><br>
+  <input type="number" value ="0" id="min_angle" max="70" min ="0" maxlength="2">Min_angle</input><br>
+  <input type="number" value ="70" id="max_angle" max="70" min ="0" maxlength="2">max_angle</input><br>
+  <input type="number" value ="0" id="min_azimuth" max="358" min ="0" maxlength="3">min_azimuth</input><br>
+  <input type="number" value ="359" id="max_azimuth" max="359" min ="0" maxlength="3">max_azimuth</input><br>
+  <input type="number" value ="10" id="apperture" max="30" min ="0" maxlength="2">Apperture</input><br>
+  <input type="checkbox" id="reciprocity">reciprocity</input><br>
+  <input type="range" id="Rotate" value="0" min="0" max="360">Rotate</input><br>
+  <input type="button" value="apply" onclick="something()"></input>
+  
+  </form>
+  <div name = div1 id="myDiv" >
+  
+</div>
+
+  </body>
+</html>

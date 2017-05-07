@@ -1,0 +1,45 @@
+<html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type='text/javascript' src="http://d3js.org/d3.v3.min.js"></script>
+<script type='text/javascript' src="micropolar-v0.2.2.js"></script>
+<script src="jquery-3.2.0.js"></script>
+<link href="c3-0.4.11\c3.css" rel="stylesheet" type="text/css">
+<script src="c3-0.4.11\c3.min.js"></script>
+<body>
+<div  id="spectrum">
+  
+  </div>
+   <script> // Spectrum
+
+var chart = c3.generate({
+	bindto: '#spectrum',
+    data: {
+        xs:{
+			'data1':'data2',
+			'data3':'data4',
+			'data5':'data6',
+			},
+		columns: [
+            ['data1', 30, 20, 50, 40, 60, 50],
+            ['data2', 200, 130, 90, 240, 130, 220],
+            ['data3', 300, 200, 160, 400, 250, 250],
+            ['data4', 200, 130, 90, 240, 130, 220],
+            ['data5', 130, 120, 150, 140, 160, 150],
+            ['data6', 90, 70, 20, 50, 60, 120],
+        ],
+        type: 'bar',
+        types: {
+            data3: 'spline',
+            data4: 'line',
+            data6: 'area',
+        },
+        groups: [
+            ['data1','data2']
+        ]
+    }
+});
+</script>
+  </body>
+  </html>

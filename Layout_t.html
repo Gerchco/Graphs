@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<title>3D</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type='text/javascript' src="http://d3js.org/d3.v3.min.js"></script>
+<script type='text/javascript' src="micropolar-v0.2.2.js"></script>
+<script src="jquery-3.2.0.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+p.solid {border-style: solid;}
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px" onload="something()">
+
+Sidebar/menu
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <img src="ParadigmLogo.png" style="width:45%;" class="w3-round"><br><br>
+    <h4 class="w3-padding-0"><b>Graphs</b></h4>
+    
+  </div>
+  <div class="w3-bar-block">
+    <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-pie-chart" aria-hidden="true"></i>3D Spiral</a> 
+    <a href="#Scatter" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-area-chart" aria-hidden="true"></i>Scatter Plot</a> 
+    <a href="#Spectrum" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-area-chart" aria-hidden="true"></i>Spectrum</a>
+	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-area-chart" aria-hidden="true"></i>Crossplot</a>
+	<a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bars" aria-hidden="true"></i>Parameters</a>
+  </div>
+  
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Header -->
+  <header id="portfolio">
+    
+  </header>
+  
+
+  <div class="w3-container w3-padding-large" style="margin-bottom:32px" id="Spectrum">
+    <h4><b>Scatter Plot</b></h4>
+    <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+    <hr>
+    
+    <p class="solid"></p>
+	<h4>Technical Skills</h4>
+    <!-- Pricing Tables -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+          <li class="w3-black w3-xlarge w3-padding-32">Parameters</li>
+          <li class="w3-padding-16"><input type="number" value ="6" id="num_sectors" max="15" min ="0" maxlength="2">Sectors</input><br></li>
+          <li class="w3-padding-16"><input type="number" value ="10" id="apperture" max="30" min ="0" maxlength="2">Apperture</input><br></li>
+          <li class="w3-padding-16"><input type="checkbox" id="reciprocity">reciprocity</input><br></li>
+          <li class="w3-light-grey w3-padding-24">
+            <input class="w3-button w3-teal w3-padding-large w3-hover-black" type="button" value="apply" onclick="something()"></input>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+          <li class="w3-teal w3-xlarge w3-padding-32">Pro</li>
+          <li class="w3-padding-16">Web Design</li>
+          <li class="w3-padding-16">Photography</li>
+          <li class="w3-padding-16">50GB Storage</li>
+          <li class="w3-padding-16">Endless Support</li>
+          <li class="w3-padding-16">
+            <h2>$ 25</h2>
+            <span class="w3-opacity">per month</span>
+          </li>
+          <li class="w3-light-grey w3-padding-24">
+            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+          <li class="w3-black w3-xlarge w3-padding-32">Premium</li>
+          <li class="w3-padding-16">Web Design</li>
+          <li class="w3-padding-16">Photography</li>
+          <li class="w3-padding-16">Unlimited Storage</li>
+          <li class="w3-padding-16">Endless Support</li>
+          <li class="w3-padding-16">
+            <h2>$ 25</h2>
+            <span class="w3-opacity">per month</span>
+          </li>
+          <li class="w3-light-grey w3-padding-24">
+            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+
+
+<script>  //3D Polar tool for sectoring
+function something(){
+var reciprocity=0;
+if (document.getElementById("reciprocity").checked){
+reciprocity=1;}
+var num_sectors=document.getElementById("num_sectors").value;
+var apperture=document.getElementById("apperture").value;
+var t_area = [];
+var r_area=[];
+var i=0;
+
+for (var i = 0; i < 360; i++){
+    t_area[i] = i;
+	if (i % (360/num_sectors) < apperture){
+	r_area[i]=70;
+	}
+	else {
+	r_area[i]=0;
+	}
+	}
+
+var a=[0,50,100,150,200,250,300,350,40,90,140,190,240,290,340,10,60,110,160,210,260,310,0,50,100,150,200,250,300,350,40,90,140,190,240,290,340];
+if (reciprocity==1){
+for (i=0;i<a.length;i++){
+if (a[i]>180){
+a[i] -= 180;
+}
+}
+}
+var config = {
+    "data": [{
+        "t": t_area, // theta values (x axis)
+        "r": r_area, // radial values (y axis)
+        "name": num_sectors+" Sectors"+" +- "+apperture/2, // name for the legend
+        "visible": true,
+        "color": "lime", // color of data element
+        "opacity": 0.2,
+        "strokeColor": "lime",
+        "strokeDash": "dash", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "AreaChart" // AreaChart, BarChart, DotPlot, LinePlot (default)
+    },  {
+        "t": a,
+        "r": [0,2,4,6,8,10,12,14,16,18,20,15,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70],
+        "name": "3D Spiral",
+        "color": "Blue",
+        "strokeColor": "blue",
+        "geometry": "DotPlot",
+        "dotVisible": true,
+        "groupId": 0
+    }],
+    "layout": {
+        "title": "3D Polar Tool", // (default: null)
+        "height": 800, // (default: 450)
+        "width": 800, // (default: 500)
+        "font": { // axes labels font
+            "size": 12, // (default:12)
+            "color": "Black", // (default: gray)
+            "family": "Tahoma, sans-serif", // (default: "Tahoma, sans-serif")
+            "outlineColor": "white" // (default: white)
+        },
+        "direction": "counterclockwise", // clockwise (default), counterclockwise
+        "orientation": 0, // 0-360 (default: 0, starts at 3 O'clock)
+        "opacity": 0.8, // 0-1 (default: 1)
+        "legend": {
+            "reverseOrder": false // true|false (default: false)
+        },
+        "showLegend": true, // (default: true)
+        "margin": { // in pixel (default: 40)
+            "top": 80,
+            "right": 60,
+            "bottom": 30,
+            "left": 60
+        },
+        "backgroundColor": "ghostwhite", // (default: none)
+        "radialAxis": {
+            "domain": [0,70], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "orientation": 0, // 0-360 (default: 0)
+            "visible": true, // true|false (default: true)
+            "gridLinesVisible": true, // true|false (default: true)
+            "tickOrientation": 'angular', // 'angular', 'horizontal' (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "angularAxis": {
+            "domain": [0,360], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "visible": true, // true|false (default: true)
+            "gridLinesVisible": true, // true|false (default: true)
+            "labelsVisible": true, // true|false (default: true)
+            "tickOrientation": "horizontal", // radial, angular, horizontal (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "labelOffset": 20, // in pixel (default: 10)
+        "defaultColorRange": [ // used by geometries
+          "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+        ],
+        "tickLength": null, // null (default, means full length) | value in pixel
+        "tickColor": "black" // axes, ticks and grid
+    }
+};
+
+micropolar.Axis() // instantiate a new axis
+  .config(config) // configure it
+  .render(d3.select('#div1').data('div1')); // render it
+
+  }
+  
+  </script>
+  
+  
+  
+  <div name = "div1" id = div1 class="w3-center w3-padding-24">
+  
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<title>3D</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type='text/javascript' src="http://d3js.org/d3.v3.min.js"></script>
+<script type='text/javascript' src="micropolar-v0.2.2.js"></script>
+<script src="jquery-3.2.0.js"></script>
+<link href="c3-0.4.11\c3.css" rel="stylesheet" type="text/css">
+
+<!-- Load d3.js and c3.js -->
+
+<script src="c3-0.4.11\c3.min.js"></script>
+<style>
+h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+p.solid {border-style: solid;}
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px" onload="closeNav();something();showgraph()" id="body">
+
+
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left w3-animate-opacity" style="z-index:3;width:150px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><img src="ParadigmLogo.png" style="width:45%;" class="w3-round"><br><br>
+    <h4 class="w3-padding-0"><b>Graphs</b></h4>
+    
+  </div>
+  <div class="w3-bar-block">
+    <a href="#spiral" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-pie-chart" aria-hidden="true"></i>3D Spiral</a> 
+    <a href="#scatter" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-area-chart" aria-hidden="true"></i>Scatter Plot</a> 
+    <a href="#spectrum" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-area-chart" aria-hidden="true"></i>Spectrum</a>
+	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-area-chart" aria-hidden="true"></i>Crossplot</a>
+	<a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bars" aria-hidden="true"></i>Parameters</a>
+  </div>
+  
+</nav>
+<script>
+function checkfull() {
+    var x=document.getElementById("full").checked;
+	var y=document.getElementById("apperture");
+	if (x == true){
+	y.type="hidden";
+	}
+	else
+	y.type="number";
+
+}
+</script>
+<script>
+function openNav() {
+    document.getElementById("mySidebar").style.width = "150px";
+	document.getElementById("body").style.marginLeft = "150px";
+}
+
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+	document.getElementById("body").style.marginLeft = "0";
+}
+</script>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  
+  
+
+  <div class="w3-container w3-padding-large" id="spiral">
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    <h4>Sectoring Graph</h4>
+	<form id="paras">
+    <!-- Parameters Tables -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-black w3-xlarge w3-padding-32">General Parameters</li>
+		<li class="w3-padding-16"><input type="number" value ="6" id="num_sectors" max="15" min ="0" maxlength="2">Sectors</input></li>
+		<li class="w3-padding-16"><input type="checkbox" id="reciprocity">reciprocity</input></li>
+		<li class="w3-padding-16"><input class="w3-button w3-teal w3-padding-large w3-hover-black" type="button" value="apply" onclick="something()"></input></li>
+        </ul>
+      </div>
+      
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-teal w3-xlarge w3-padding-32">Azimuth</li>
+        <li class="w3-padding-16"><input type="number" value ="0" id="min_azimuth" max="358" min ="0" maxlength="3">min_azimuth</input></li>
+		<li class="w3-padding-16"><input type="number" value ="360" id="max_azimuth" max="360" min ="0" maxlength="3">max_azimuth</input></li>
+		<li class="w3-padding-16"><input type="checkbox" id="full" onclick="checkfull()">Full</input>
+		<input type="number" value ="10" id="apperture" max="30" min ="0" maxlength="2">Apperture</input></li>
+		</ul>
+      </div>
+      
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-black w3-xlarge w3-padding-32">Angle</li>
+        <li class="w3-padding-16"><input type="number" value ="0" id="min_angle" max="70" min ="0" maxlength="2">Min_angle</input></li>
+		<li class="w3-padding-16"><input type="number" value ="70" id="max_angle" max="70" min ="0" maxlength="2">max_angle</input></li>
+		</ul>
+      </div>
+    </div>
+	</form>
+  </div>
+  
+  
+  <div class="w3-container w3-padding-large" id="Spectrum">
+    <h4>Spectrum Graph</h4>
+	<form id="Spec">
+    <!-- Parameters Tables -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-black w3-xlarge w3-padding-32">Trapazoid Filter</li>
+		<li class="w3-padding-16"><input type="number" value ="5" id="num_sectors" max="100" min ="0" maxlength="2">1</input></li>
+		<li class="w3-padding-16"><input type="number" value ="10" id="num_sectors" max="100" min ="0" maxlength="2">2</input></li>
+		<li class="w3-padding-16"><input type="number" value ="50" id="num_sectors" max="100" min ="0" maxlength="2">3</input></li>
+		<li class="w3-padding-16"><input type="number" value ="60" id="num_sectors" max="100" min ="0" maxlength="2">4</input></li>
+		<li class="w3-padding-16"><input class="w3-button w3-teal w3-padding-large w3-hover-black" type="button" value="apply" onclick="showgraph()"></input></li>
+        </ul>
+      </div>
+      
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-teal w3-xlarge w3-padding-32">bla bla</li>
+   		<input type="number" value ="10" id="bla" max="30" min ="0" maxlength="2">bla</input></li>
+		</ul>
+      </div>
+      
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-black w3-xlarge w3-padding-32">bla</li>
+        <li class="w3-padding-16"><input type="number" value ="0" id="bla bla bla" max="70" min ="0" maxlength="2">yadayada</input></li>
+		<li class="w3-padding-16"><input type="number" value ="70" id="yada" max="70" min ="0" maxlength="2">bla bla</input></li>
+		</ul>
+      </div>
+    </div>
+	</form>
+  </div>
+  
+  <p id="g"></p>
+  </div>
+</div>
+  
+
+
+<script>  //3D Polar tool for sectoring
+function something(){
+var reciprocity=0;
+if (document.getElementById("reciprocity").checked){
+reciprocity=1;}
+var full=0;
+
+
+var num_sectors=parseInt(document.getElementById("num_sectors").value);
+var min_angle=parseInt(document.getElementById("min_angle").value);
+var max_angle=parseInt(document.getElementById("max_angle").value);
+var min_azimuth=parseInt(document.getElementById("min_azimuth").value);
+var max_azimuth=parseInt(document.getElementById("max_azimuth").value);
+
+var t_area = [];
+var r_area=[];
+var r_area_b=[];
+var r_area_a=[];
+var border_r_a=[];
+var i=0;
+var j=0;
+var azi_range=max_azimuth-min_azimuth;
+var azi_step=Math.floor(azi_range/num_sectors);
+
+if (document.getElementById("full").checked){
+full=1;
+var apperture=Math.floor(azi_step/2)}
+else {var apperture=parseInt(document.getElementById("apperture").value);}
+var azimuth=[];
+var radios=[];
+var border_t=[];
+var border_r=[];
+var start_sector=Math.floor(min_azimuth+azi_step/2)
+var start=start_sector-apperture;
+var finish_sector=Math.floor(max_azimuth-azi_step/2)
+var finish=finish_sector+apperture;
+for(i=0;i<300;i++)  //setting the spiral points
+{
+azimuth[i]=(i*13)%360;
+radios[i]=i*7/30;
+}
+for (i = 0; i < 360; i++){
+    t_area[i] = i;   //spiral
+	r_area[i]=0;
+	r_area_b[i]=0;
+	r_area_a[i]=0;
+	}
+var count=0;
+for(i=start_sector;i<=finish_sector;i+=azi_step)
+{border_t[count]=i;
+border_r[count]=max_angle-min_angle;
+border_r_a[count]=min_angle;
+count++;
+for(j=i-apperture;j<=i+apperture;j++){
+	
+	r_area[j]=max_angle-min_angle;
+	r_area_b[j]=70-max_angle;
+	r_area_a[j]=min_angle;
+}
+}
+
+
+	
+
+
+var count=0;
+var azimuth_r=[];
+var radios_r=[];
+
+var config = {
+    "data": [{
+        "t": t_area, // theta values (x axis)
+        "r": r_area_a, // radial values (y axis)
+        "name": num_sectors+" Sectors"+" +- "+apperture/2, // name for the legend
+        "visible": true,
+        "color": "white", // color of data element
+        "opacity": 0.2,
+        "strokeColor": "white",
+        "strokeDash": "Solid", // solid, dot, dash (default)
+        "strokeSize": 3,
+        "visibleInLegend": true,
+        "geometry": "AreaChart", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 0
+    },{
+		"t": t_area, // theta values (x axis)
+        "r": r_area, // radial values (y axis)
+        "name": num_sectors+" Sectors"+" +- "+apperture/2, // name for the legend
+        "visible": true,
+        "color": "lime", // color of data element
+        "opacity": 0.2,
+        "strokeColor": "lime",
+        "strokeDash": "Solid", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "AreaChart", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 0
+    },{
+		"t": t_area, // theta values (x axis)
+        "r": r_area_b, // radial values (y axis)
+        "name": num_sectors+" Sectors"+" +- "+apperture/2, // name for the legend
+        "visible": true,
+        "color": "white", // color of data element
+        "opacity": 0.2,
+        "strokeColor": "white",
+        "strokeDash": "dash", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "AreaChart", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 0
+    },{
+        "t": azimuth,
+        "r": radios,
+        "name": "3D Spiral",
+        "color": "Blue",
+        "strokeColor": "blue",
+        "geometry": "DotPlot",
+        "dotVisible": true,
+        
+    },{
+		"t": border_t, // theta values (x axis)
+        "r": border_r_a, // radial values (y axis)
+        "name": "border", // name for the legend
+        "visible": true,
+        "color": "white", // color of data element
+        "opacity": 1,
+        "strokeColor": "white",
+        "strokeDash": "Solid", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "LinePlot", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 1
+    },{
+		"t": border_t, // theta values (x axis)
+        "r": border_r, // radial values (y axis)
+        "name": "border", // name for the legend
+        "visible": true,
+        "color": "lime", // color of data element
+        "opacity": 1,
+        "strokeColor": "lime",
+        "strokeDash": "Solid", // solid, dot, dash (default)
+        "strokeSize": 1,
+        "visibleInLegend": true,
+        "geometry": "LinePlot", // AreaChart, BarChart, DotPlot, LinePlot (default)
+		"groupId": 1
+    }],
+    "layout": {
+        "title": "3D Polar Tool", // (default: null)
+        "height": 800, // (default: 450)
+        "width": 800, // (default: 500)
+        "font": { // axes labels font
+            "size": 12, // (default:12)
+            "color": "Black", // (default: gray)
+            "family": "Tahoma, sans-serif", // (default: "Tahoma, sans-serif")
+            "outlineColor": "white" // (default: white)
+        },
+        "direction": "clockwise", // clockwise (default), counterclockwise
+        "orientation": 270, // 0-360 (default: 0, starts at 3 O'clock)
+        "opacity": 0.8, // 0-1 (default: 1)
+        "legend": {
+            "reverseOrder": false // true|false (default: false)
+        },
+        "showLegend": false, // (default: true)
+        "margin": { // in pixel (default: 40)
+            "top": 80,
+            "right": 60,
+            "bottom": 30,
+            "left": 60
+        },
+        "backgroundColor": "ghostwhite", // (default: none)
+        "radialAxis": {
+            "domain": [0,70], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "orientation": 0, // 0-360 (default: 0)
+            "visible": true, // true|false (default: true)
+            "gridLinesVisible": true, // true|false (default: true)
+            "tickOrientation": 'angular', // 'angular', 'horizontal' (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "angularAxis": {
+            "domain": [0,360], // µ.DATAEXTENT alias for null (default) | [min, max] as floats
+            "visible": true, // true|false (default: true)
+			"ticksCount": 20,
+            "gridLinesVisible": true, // true|false (default: true)
+            "labelsVisible": true, // true|false (default: true)
+            "tickOrientation": "horizontal", // radial, angular, horizontal (default)
+            "ticksSuffix": "" // string (default: '')
+        },
+        "labelOffset": 20, // in pixel (default: 10)
+        "defaultColorRange": [ // used by geometries
+          "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+        ],
+        "tickLength": null, // null (default, means full length) | value in pixel
+        "tickColor": "black" // axes, ticks and grid
+    }
+};
+
+if (reciprocity==1){
+	for (i=0;i<azimuth.length;i++){
+		if (azimuth[i]>180){
+			azimuth_r[count] = azimuth[i]- 180;
+			radios_r[count] = radios[i];
+			azimuth[i] = 0;
+			radios[i] = 0;
+			count++;
+		}
+	}
+config.data.push({
+        "t": azimuth_r,
+        "r": radios_r,
+        "name": "Reciprocity",
+        "color": "Red",
+        "strokeColor": "Red",
+        "geometry": "DotPlot",
+        "dotVisible": true,
+        
+    });
+
+}
+
+micropolar.Axis() // instantiate a new axis
+  .config(config) // configure it
+  .render(d3.select('#spiral').data('#spiral'))
+  ; // render it
+	
+  }
+  
+  </script>
+  <script> // Spectrum
+function showgraph(){
+var chart = c3.generate({
+	bindto: '#g',
+    data: {
+        x:'x',
+		columns: [
+            ['x', 30, 20, 50, 40, 60, 50],
+			['data1', 30, 20, 50, 40, 60, 50],
+            ['data2', 200, 130, 90, 240, 130, 220],
+            ['data3', 300, 200, 160, 400, 250, 250],
+            ['data4', 200, 130, 90, 240, 130, 220],
+            ['data5', 130, 120, 150, 140, 160, 150],
+            ['data6', 90, 70, 20, 50, 60, 120],
+        ],
+        type: 'spline',
+        
+        
+    },
+	legend: {
+		position: 'right'
+	},
+	zoom: {
+        enabled: true
+    },
+	axis: {
+        x: {
+            type:'catagory',
+			max: 200,
+            min: 0,
+            // Range includes padding, set 0 if no padding needed
+            // padding: {top:0, bottom:0}
+        }
+    }
+});
+}
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<title>3D</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type='text/javascript' src="http://d3js.org/d3.v3.min.js"></script>
+<script type='text/javascript' src="micropolar-v0.2.2.js"></script>
+<script src="jquery-3.2.0.js"></script>
+<link href="c3-0.4.11\c3.css" rel="stylesheet" type="text/css">
+
+<!-- Load d3.js and c3.js -->
+
+<script src="c3-0.4.11\c3.min.js"></script>
+<style>
+h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+p.solid {border-style: solid;}
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px" onload="showgraph()" id="body">
+
+<script>
+function checkfull() {
+    var x=document.getElementById("full").checked;
+	var y=document.getElementById("apperture");
+	if (x == true){
+	y.type="hidden";
+	}
+	else
+	y.type="number";
+
+}
+</script>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+
+  
+  
+  <div class="w3-container w3-padding-large" id="Spectrum">
+    <h4>Spectrum Graph</h4>
+	<form id="Spec">
+    <!-- Parameters Tables -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-black w3-xlarge w3-padding-32">Trapazoid Filter</li>
+		<li class="w3-padding-16"><input type="number" value ="5" id="num_sectors" max="100" min ="0" maxlength="2">1</input></li>
+		<li class="w3-padding-16"><input type="number" value ="10" id="num_sectors" max="100" min ="0" maxlength="2">2</input></li>
+		<li class="w3-padding-16"><input type="number" value ="50" id="num_sectors" max="100" min ="0" maxlength="2">3</input></li>
+		<li class="w3-padding-16"><input type="number" value ="60" id="num_sectors" max="100" min ="0" maxlength="2">4</input></li>
+		<li class="w3-padding-16"><input class="w3-button w3-teal w3-padding-large w3-hover-black" type="button" value="apply" onclick="showgraph()"></input></li>
+        </ul>
+      </div>
+      
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-teal w3-xlarge w3-padding-32">bla bla</li>
+   		<input type="number" value ="10" id="bla" max="30" min ="0" maxlength="2">bla</input></li>
+		</ul>
+      </div>
+      
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+        <li class="w3-black w3-xlarge w3-padding-32">bla</li>
+        <li class="w3-padding-16"><input type="number" value ="0" id="bla bla bla" max="70" min ="0" maxlength="2">yadayada</input></li>
+		<li class="w3-padding-16"><input type="number" value ="70" id="yada" max="70" min ="0" maxlength="2">bla bla</input></li>
+		</ul>
+      </div>
+    </div>
+	</form>
+  </div>
+  
+  <p id="g"></p>
+  </div>
+
+  
+
+
+
+  
+  <script> // Spectrum
+function showgraph(){
+
+var i=0;
+var azimuth=[];
+var radios=[];
+azimuth[i]="bla agdfg";
+radios[i]="r afgadfg";
+for(i=1;i<100;i++)  //setting the spiral points
+{
+azimuth[i]=(i*13)%360;
+radios[i]=i;
+}
+
+var test = {
+"azimuth":azimuth,
+"radios":radios
+}
+
+var chart = c3.generate({
+	bindto: '#g',
+     data: {
+        test
+    },
+	legend: {
+		position: 'right'
+	},
+	zoom: {
+        enabled: true
+    },
+	axis: {
+        x: {
+            type:'catagory',
+			max: 500,
+            min: 0,
+            // Range includes padding, set 0 if no padding needed
+            // padding: {top:0, bottom:0}
+        }
+    }
+});
+}
+</script>
+
+  </body>
+</html>
